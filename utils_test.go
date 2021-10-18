@@ -84,4 +84,28 @@ func TestCheckOptionMatch(t *testing.T) {
 	if !checkOptionMatch("/thisisdir/one.go", opts) {
 		t.Errorf("invalid logic: renotmatchdir is not ignore")
 	}
+
+	opts = &ClocOptions{}
+	opts.ReNotMatchFile = regexp.MustCompile("not")
+	if !checkOptionMatch("/thisisdir/one.go", opts) {
+		t.Errorf("file should be skipped")
+	}
+
+	opts = &ClocOptions{}
+	opts.ReNotMatchFile = regexp.MustCompile("one")
+	if checkOptionMatch("/thisisdir/one.go", opts) {
+		t.Errorf("file should not be skipped")
+	}
+
+	opts = &ClocOptions{}
+	opts.ReMatchFile = regexp.MustCompile("one")
+	if !checkOptionMatch("/thisisdir/one.go", opts) {
+		t.Errorf("file should not be skipped")
+	}
+
+	opts = &ClocOptions{}
+	opts.ReMatchFile = regexp.MustCompile("not")
+	if checkOptionMatch("/thisisdir/one.go", opts) {
+		t.Errorf("file should be skipped")
+	}
 }

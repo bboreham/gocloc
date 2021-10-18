@@ -49,6 +49,8 @@ type CmdOptions struct {
 	IncludeLang    string `long:"include-lang" description:"include language name (separated commas)"`
 	MatchDir       string `long:"match-d" description:"include dir name (regex)"`
 	NotMatchDir    string `long:"not-match-d" description:"exclude dir name (regex)"`
+	MatchFile      string `long:"match" description:"include file name (regex)"`
+	NotMatchFile   string `long:"not-match" description:"exclude file name (regex)"`
 	Debug          bool   `long:"debug" description:"dump debug log for developer"`
 	SkipDuplicated bool   `long:"skip-duplicated" description:"skip duplicated files"`
 	ShowLang       bool   `long:"show-lang" description:"print about all languages and extensions"`
@@ -245,6 +247,12 @@ func main() {
 	}
 	if opts.MatchDir != "" {
 		clocOpts.ReMatchDir = regexp.MustCompile(opts.MatchDir)
+	}
+	if opts.NotMatchFile != "" {
+		clocOpts.ReNotMatchFile = regexp.MustCompile(opts.NotMatchFile)
+	}
+	if opts.MatchFile != "" {
+		clocOpts.ReMatchFile = regexp.MustCompile(opts.MatchFile)
 	}
 
 	// setup option for include languages

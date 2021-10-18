@@ -10,6 +10,8 @@ type ClocOptions struct {
 	IncludeLangs   map[string]struct{}
 	ReNotMatchDir  *regexp.Regexp
 	ReMatchDir     *regexp.Regexp
+	ReNotMatchFile *regexp.Regexp
+	ReMatchFile    *regexp.Regexp
 
 	// OnCode is triggered for each line of code.
 	OnCode func(line string)

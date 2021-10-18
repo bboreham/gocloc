@@ -91,6 +91,15 @@ func checkOptionMatch(path string, opts *ClocOptions) bool {
 		return false
 	}
 
+	file := filepath.Base(path)
+	if opts.ReNotMatchFile != nil && opts.ReNotMatchFile.MatchString(file) {
+		return false
+	}
+
+	if opts.ReMatchFile != nil && !opts.ReMatchFile.MatchString(file) {
+		return false
+	}
+
 	return true
 }
 
